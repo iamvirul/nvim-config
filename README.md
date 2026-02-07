@@ -186,6 +186,21 @@ nvim
 
 ```
 ~/.config/nvim/
-  init.lua        -- Single-file config (plugins, LSP, keymaps, everything)
-  lazy-lock.json  -- Plugin version lockfile (committed for reproducibility)
+  init.lua                     -- Entry point (leader, lazy bootstrap, module loads)
+  lazy-lock.json               -- Plugin version lockfile (committed for reproducibility)
+  lua/
+    config/
+      options.lua              -- Basic settings (tabs, numbers, splits, etc.)
+      keymaps.lua              -- General keymaps (window nav, directory ops, workspace)
+      autocmds.lua             -- Autocommands (DirChanged, filetype settings)
+    plugins/
+      colorscheme.lua          -- Catppuccin
+      telescope.lua            -- Telescope + file-browser + fzf-native + github ext
+      neo-tree.lua             -- Neo-tree file explorer
+      git.lua                  -- Fugitive + gitsigns + git-blame
+      treesitter.lua           -- Treesitter parser installer
+      lsp.lua                  -- Mason + mason-lspconfig + native LSP config
+      completion.lua           -- nvim-cmp + LuaSnip + sources
+      terminal.lua             -- Toggleterm
+      java.lua                 -- nvim-jdtls + FileType autocmd for Java
 ```
