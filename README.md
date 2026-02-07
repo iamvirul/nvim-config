@@ -1,6 +1,6 @@
 # Neovim Config
 
-Personal Neovim configuration with Java LSP, file explorer, integrated terminal, and git integration. Designed for Neovim 0.11+.
+Modular Neovim configuration with Java LSP, file explorer, integrated terminal, and git integration. Designed for Neovim 0.11+.
 
 ## Requirements
 
