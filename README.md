@@ -161,6 +161,16 @@ Leader key: `Space`
 
 ## Setup on a New Device
 
+### One-liner (curl from GitHub)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/iamvirul/nvim-config/main/install.sh | bash
+```
+
+This installs Neovim, dependencies (ripgrep, Java 21, Nerd Font), and clones the config. Supports macOS and Linux (Debian/Ubuntu, Fedora, Arch).
+
+### Manual setup
+
 ```bash
 # 1. Install Neovim 0.11+
 brew install neovim    # macOS
