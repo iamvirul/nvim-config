@@ -107,9 +107,13 @@ Leader key: `Space`
 | `<leader>th` | Terminal (horizontal split) |
 | `<leader>tv` | Terminal (vertical split) |
 | `<leader>tf` | Terminal (floating) |
-| `<leader>t1/t2/t3` | Toggle terminal 1/2/3 |
+| `<leader>tt` | Terminal (new tab) |
+| `<leader>t1/t2/t3/t4` | Toggle terminal 1/2/3/4 |
+| `<leader>ta` | Toggle all terminals |
 | `Esc` | Exit terminal insert mode |
 | `Ctrl+h/j/k/l` | Navigate between terminal and editor splits |
+| `Ctrl+Up/Down` | Resize terminal height (in terminal mode) |
+| `Ctrl+Left/Right` | Resize terminal width (in terminal mode) |
 
 ### Window Navigation
 
