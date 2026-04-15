@@ -1,6 +1,6 @@
 -- Autocommands for better file browsing
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "neo-tree", "TelescopePrompt", "fugitive" },
+    pattern = { "neo-tree", "fff", "fugitive" },
     callback = function()
         vim.cmd("setlocal nocursorline")
     end,

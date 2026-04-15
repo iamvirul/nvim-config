@@ -93,6 +93,22 @@ if [ -d "$NVIM_DIR" ]; then
     fi
 fi
 
+configure_ulimit() {
+    echo "Configuring file descriptor limits..."
+    for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
+        if [ -f "$rc" ]; then
+            if ! grep -q "ulimit -n" "$rc"; then
+                echo "" >> "$rc"
+                echo "# Increase file descriptor limit for Neovim (Telescope/Plenary)" >> "$rc"
+                echo "ulimit -n 10240" >> "$rc"
+                echo "Added ulimit to $rc"
+            fi
+        fi
+    done
+}
+
+configure_ulimit
+
 echo "Cloning config..."
 git clone https://github.com/iamvirul/nvim-config.git "$NVIM_DIR"
 

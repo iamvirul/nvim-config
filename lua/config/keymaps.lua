@@ -14,118 +14,36 @@ vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decreas
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase width" })
 
 vim.schedule(function()
-    -- Telescope keymaps
-    local ok, builtin = pcall(require, "telescope.builtin")
+    -- FFF keymaps
+    local ok, fff = pcall(require, "fff")
     if ok then
         -- File operations
-        vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+        vim.keymap.set("n", "<leader>ff", fff.find_files, { desc = "Find files" })
         vim.keymap.set("n", "<leader>fF", function()
-            builtin.find_files({ cwd = vim.fn.expand("%:p:h") })
+            fff.find_files({ cwd = vim.fn.expand("%:p:h") })
         end, { desc = "Find files (current dir)" })
 
-        -- File browser for folder navigation
-        vim.keymap.set("n", "<leader>fe", function()
-            require("telescope").extensions.file_browser.file_browser({
-                path = "%:p:h",
-                grouped = true,
-                initial_mode = "normal",
-                hide_parent_dir = false,
-                respect_gitignore = true,
-            })
-        end, { desc = "File browser (current dir)" })
-
-        vim.keymap.set("n", "<leader>fE", function()
-            require("telescope").extensions.file_browser.file_browser({
-                grouped = true,
-                initial_mode = "normal",
-                hide_parent_dir = false,
-                respect_gitignore = true,
-            })
-        end, { desc = "File browser (project)" })
-
-        -- File browser with split opening capabilities
-        vim.keymap.set("n", "<leader>fse", function()
-            require("telescope").extensions.file_browser.file_browser({
-                path = vim.fn.getcwd(),
-                grouped = true,
-                initial_mode = "normal",
-                hide_parent_dir = false,
-                respect_gitignore = true,
-                previewer = false,
-                layout_config = {
-                    width = 0.8,
-                    height = 0.8,
-                },
-                attach_mappings = function(prompt_bufnr, map)
-                    local actions = require("telescope.actions")
-                    local action_state = require("telescope.actions.state")
-
-                    -- Custom action: open in vertical split
-                    map("i", "<C-v>", function()
-                        local entry = action_state.get_selected_entry()
-                        actions.close(prompt_bufnr)
-                        if entry then
-                            vim.cmd("vsplit " .. entry.path)
-                        end
-                    end)
-
-                    map("n", "<C-v>", function()
-                        local entry = action_state.get_selected_entry()
-                        actions.close(prompt_bufnr)
-                        if entry then
-                            vim.cmd("vsplit " .. entry.path)
-                        end
-                    end)
-
-                    -- Custom action: open in horizontal split
-                    map("i", "<C-x>", function()
-                        local entry = action_state.get_selected_entry()
-                        actions.close(prompt_bufnr)
-                        if entry then
-                            vim.cmd("split " .. entry.path)
-                        end
-                    end)
-
-                    map("n", "<C-x>", function()
-                        local entry = action_state.get_selected_entry()
-                        actions.close(prompt_bufnr)
-                        if entry then
-                            vim.cmd("split " .. entry.path)
-                        end
-                    end)
-
-                    return true
-                end
-            })
-        end, { desc = "File browser (open files in splits)" })
-
         -- Grep/search
-        vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+        vim.keymap.set("n", "<leader>fg", fff.live_grep, { desc = "Live grep" })
         vim.keymap.set("n", "<leader>fG", function()
-            builtin.live_grep({ cwd = vim.fn.expand("%:p:h") })
+            fff.live_grep({ cwd = vim.fn.expand("%:p:h") })
         end, { desc = "Live grep (current dir)" })
+        
+        vim.keymap.set("n", "<leader>fz", function()
+            fff.live_grep({ grep = { modes = { "fuzzy", "plain" } } })
+        end, { desc = "Live fuzzy grep" })
 
-        vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "Grep string under cursor" })
-
-        -- Other Telescope functions
-        vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
-        vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
-        vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
-        vim.keymap.set("n", "<leader>f:", builtin.command_history, { desc = "Command history" })
+        vim.keymap.set("n", "<leader>fs", function()
+            fff.live_grep({ query = vim.fn.expand("<cword>") })
+        end, { desc = "Search current word" })
 
         -- Quick access
-        vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Find files" })
-        vim.keymap.set("n", "<C-f>", builtin.live_grep, { desc = "Live grep" })
+        vim.keymap.set("n", "<C-p>", fff.find_files, { desc = "Find files" })
+        vim.keymap.set("n", "<C-f>", fff.live_grep, { desc = "Live grep" })
 
-        -- Git Telescope extensions
-        vim.keymap.set("n", "<leader>gg", builtin.git_status, { desc = "Git status" })
-        vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "Git branches" })
-        vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Git commits" })
-        vim.keymap.set("n", "<leader>gs", builtin.git_stash, { desc = "Git stash" })
-
-        print("Telescope keymaps set successfully")
+        print("FFF keymaps set successfully")
     else
-        print("Telescope not available yet")
+        print("FFF not available yet")
     end
 
     -- Fugitive (Git) keymaps
@@ -283,7 +201,7 @@ vim.schedule(function()
         print("Leader test: Works!")
     end, { desc = "Test leader" })
 
-    print("Leader mappings loaded. Use :Telescope keymaps to see them.")
+    print("Leader mappings loaded.")
 end)
 
 -- Helper function to save and restore window layout
